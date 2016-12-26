@@ -3,7 +3,7 @@ set -e
 
 echo "HELLO WORLD!"
 
-SERVICES="open-budget-data-api"
+SERVICES="open-budget-data-api budgetkey-app-search open-budget-search-api"
 
 
 for x in $SERVICES
