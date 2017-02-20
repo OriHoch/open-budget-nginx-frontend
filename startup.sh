@@ -2,6 +2,8 @@
 set -e
 
 echo "HELLO WORLD!"
+ls -la /var/datapackages 
+chmod 777 /var/datapackages 
 
 SERVICES="open-budget-data-api budgetkey-app-search open-budget-search-api"
 
