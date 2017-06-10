@@ -5,7 +5,7 @@ echo "HELLO WORLD!"
 ls -la /var/datapackages 
 chmod 777 /var/datapackages 
 
-SERVICES="open-budget-data-api budgetkey-app-search open-budget-search-api budgetkey-app-budget-item"
+SERVICES="open-budget-data-api budgetkey-app-search open-budget-search-api budgetkey-app-budget-item budgetkey-app-main-page"
 
 
 for x in $SERVICES
