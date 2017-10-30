@@ -9,6 +9,7 @@ ADD 500.html /usr/share/nginx/errors/500.html
 
 RUN mkdir /var/datapackages && chown -R nginx:nginx /var/datapackages
 VOLUME ["/var/datapackages"]
+VOLUME ["/var/_fonts"]
 
 EXPOSE 80
 
