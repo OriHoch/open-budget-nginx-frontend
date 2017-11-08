@@ -82,26 +82,52 @@ services:
     - BASE_PATH=/i/
 
   budgetkey-app-search:
-    image: orihoch/budgetkey-app-search:themes-support
+    image: budgetkey/budgetkey-app-search:latest
 
   kibana:
     image: kibana:5.3
 
-  nginx:
-      image: budgetkey/open-budget-nginx-frontend:latest
-      depends_on:
-      - open-budget-search-api
-      - open-budget-data-api
-      - budgetkey-app-search
-      - budgetkey-app-generic-item
-      - budgetkey-data-pipelines
-      - budgetkey-app-main-page
-      ports:
-      - 80:80
-      - 5601:5601
+  govbuy-theme:
+      image: orihoch/open-procure
       volumes:
-      - fonts:/var/_fonts
-      - datapackages:/var/datapackages
+      - ./govbuy-theme:/app/dist/assets
+
+  budgetkey-app-generic-item-govbuy:
+    image: budgetkey/budgetkey-app-generic-item:latest
+    depends_on:
+    - govbuy-theme
+    environment:
+    - BASE_PATH=/govbuy/i/
+    volumes:
+    # /mnt/budgetkey-persistent-data/govbuy-theme/theme.js
+    - ./govbuy-theme/theme.js:/app/dist/assets/theme.js
+
+  budgetkey-app-search-govbuy:
+    image: orihoch/budgetkey-app-search:themes-support
+    depends_on:
+    - govbuy-theme
+    volumes:
+    # /mnt/budgetkey-persistent-data/govbuy-theme/theme.js
+    - ./govbuy-theme/theme.js:/app/dist/assets/theme.js
+
+  nginx:
+    build: .
+    image: budgetkey/open-budget-nginx-frontend:latest
+    depends_on:
+    - open-budget-search-api
+    - open-budget-data-api
+    - budgetkey-app-search
+    - budgetkey-app-search-govbuy
+    - budgetkey-app-generic-item
+    - budgetkey-app-generic-item-govbuy
+    - budgetkey-data-pipelines
+    - budgetkey-app-main-page
+    ports:
+    - 80:80
+    - 5601:5601
+    volumes:
+    - fonts:/var/_fonts
+    - datapackages:/var/datapackages
 
 volumes:
   postgresql-data-db:
