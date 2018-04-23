@@ -3,8 +3,8 @@ sudo: required
 env:
   global:
     - K8S_OPS_REPO_BRANCH=master
-    - K8S_OPS_REPO_SLUG=OriHoch/budgetkey-k8s
-    - DOCKER_IMAGE=orihoch/open-budget-nginx-frontend
+    - K8S_OPS_REPO_SLUG=OpenBudget/budgetkey-k8s
+    - DOCKER_IMAGE=budgetkey/open-budget-nginx-frontend
     - DEPLOY_YAML_UPDATE_FILE=values.auto-updated.yaml
     - DEPLOY_VALUES_CHART_NAME=nginx
     - DEPLOY_VALUES_IMAGE_PROP=image
@@ -21,4 +21,4 @@ deploy:
   provider: script
   script: bash .travis.sh deploy
   on:
-    branch: changes-for-k8s-environment
+    branch: master
