@@ -5,9 +5,12 @@ env:
     - K8S_OPS_REPO_BRANCH=master
     - K8S_OPS_REPO_SLUG=OriHoch/budgetkey-k8s
     - DOCKER_IMAGE=orihoch/open-budget-nginx-frontend
+    - DEPLOY_YAML_UPDATE_FILE=values.auto-updated.yaml
     - DEPLOY_VALUES_CHART_NAME=nginx
     - DEPLOY_VALUES_IMAGE_PROP=image
     - DEPLOY_COMMIT_MESSAGE="automatic update of open-budget-nginx-frontend"
+    - DEPLOY_GIT_EMAIL=budgetkey-deployer@null.void
+    - DEPLOY_GIT_USER=budgetkey-deployer
 services:
   - docker
 script:

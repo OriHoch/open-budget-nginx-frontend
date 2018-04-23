@@ -15,10 +15,10 @@ elif [ "${1}" == "deploy" ]; then
     [ "$?" != "0" ] && echo failed docker push && exit 1
     docker run -e CLONE_PARAMS="--branch ${K8S_OPS_REPO_BRANCH} https://github.com/${K8S_OPS_REPO_SLUG}.git" \
                -e YAML_UPDATE_JSON='{"'"${DEPLOY_VALUES_CHART_NAME}"'":{"'"${DEPLOY_VALUES_IMAGE_PROP}"'":"'"${DOCKER_IMAGE}:${tag}"'"}}' \
-               -e YAML_UPDATE_FILE="${YAML_UPDATE_FILE}" \
-               -e GIT_USER_EMAIL="${GIT_USER_EMAIL}" \
-               -e GIT_USER_NAME="${GIT_USER_NAME}" \
-               -e GIT_COMMIT_MESSAGE="${GIT_COMMIT_MESSAGE}" \
+               -e YAML_UPDATE_FILE="${DEPLOY_YAML_UPDATE_FILE}" \
+               -e GIT_USER_EMAIL="${DEPLOY_GIT_EMAIL}" \
+               -e GIT_USER_NAME="${DEPLOY_GIT_USER}" \
+               -e GIT_COMMIT_MESSAGE="${DEPLOY_COMMIT_MESSAGE}" \
                -e PUSH_PARAMS="https://${GITHUB_TOKEN}@github.com/${K8S_OPS_REPO_SLUG}.git ${K8S_OPS_REPO_BRANCH}" \
                orihoch/github_yaml_updater
     [ "$?" != "0" ] && echo failed github yaml update && exit 1
